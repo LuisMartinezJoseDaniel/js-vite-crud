@@ -1,0 +1,14 @@
+button {
+  padding: 15px 32px;
+}
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#current-page{
+  font-size: 1.4rem;
+  color: white;
+}

@@ -1,0 +1,45 @@
+import usersStore from "../../store/users-store";
+import { renderTable } from "../render-table/render-table";
+import "./render-buttons.css"
+
+/**
+ * 
+ * @param {HTMLDivElement} element 
+ */
+export const renderButtons = ( element ) => {
+  const divContainerButtons = document.createElement( 'div' );
+  divContainerButtons.classList.add("buttonsContainer");
+
+
+  const nextButton = document.createElement( 'button' );
+  nextButton.innerText = 'Next >';
+
+  const previousButton = document.createElement( 'button' );
+  previousButton.innerText = '< Prev';
+
+  const currentPageLabel = document.createElement( 'span' );
+  currentPageLabel.id = 'current-page'
+  currentPageLabel.innerText = usersStore.getCurrentPage();
+
+  
+  divContainerButtons.append( previousButton, currentPageLabel, nextButton );
+  
+  element.append( divContainerButtons );
+
+  nextButton.addEventListener( 'click', async() => {
+    await usersStore.loadNextPage();
+    currentPageLabel.innerText = usersStore.getCurrentPage();
+    renderTable( element );
+  
+  } )
+
+  previousButton.addEventListener( 'click', async () => { 
+
+    await usersStore.loadPreviousPage();
+    currentPageLabel.innerText = usersStore.getCurrentPage()
+    renderTable(element)
+  }
+  )
+
+
+}
